@@ -1,7 +1,7 @@
 #include "DumpLogsScreen.hpp"
 #include "Gfx.hpp"
-#include "Utils.hpp"
 #include "common.h"
+#include "utils/Utils.hpp"
 #include <ctime>
 
 DumpLogsScreen::DumpLogsScreen() {

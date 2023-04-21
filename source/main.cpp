@@ -3,6 +3,7 @@
 #include "input/VPADInput.h"
 #include "input/WPADInput.h"
 #include "screens/MainScreen.hpp"
+#include "utils/logger.h"
 #include <coreinit/title.h>
 #include <memory>
 #include <padscore/kpad.h>
@@ -15,6 +16,7 @@ inline bool RunningFromMiiMaker() {
 }
 
 int main(int argc, char const *argv[]) {
+    initLogging();
     WHBProcInit();
 
     // call AXInit to stop already playing sounds
@@ -68,5 +70,6 @@ int main(int argc, char const *argv[]) {
     Gfx::Shutdown();
 
     WHBProcShutdown();
+    deinitLogging();
     return 0;
 }

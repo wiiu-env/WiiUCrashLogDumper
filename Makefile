@@ -32,7 +32,7 @@ include $(DEVKITPRO)/wut/share/wut_rules
 #-------------------------------------------------------------------------------
 TARGET		:=	wiiucrashlogdumper
 BUILD		:=	build
-SOURCES		:=	source source/screens source/input
+SOURCES		:=	source source/screens source/input source/utils
 DATA		:=	data
 INCLUDES	:=	source include
 CONTENT		:=
