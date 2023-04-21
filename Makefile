@@ -30,7 +30,7 @@ include $(DEVKITPRO)/wut/share/wut_rules
 # TV_SPLASH is the image displayed during bootup on the TV, leave blank to use default rule
 # DRC_SPLASH is the image displayed during bootup on the DRC, leave blank to use default rule
 #-------------------------------------------------------------------------------
-TARGET		:=	wiiucrashlogdumper
+TARGET		:=	WiiUCrashLogDumper
 BUILD		:=	build
 SOURCES		:=	source source/screens source/input source/utils
 DATA		:=	data
