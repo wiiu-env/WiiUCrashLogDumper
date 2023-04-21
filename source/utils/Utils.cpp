@@ -1,9 +1,12 @@
 #include "Utils.hpp"
+#include "logger.h"
 #include <cstring>
 
 #include <coreinit/debug.h>
 #include <coreinit/mcp.h>
 #include <dirent.h>
+#include <fstream>
+#include <malloc.h>
 #include <mbedtls/aes.h>
 #include <mbedtls/sha256.h>
 #include <sys/fcntl.h>
@@ -83,37 +86,16 @@ namespace Utils {
     }
 
     bool CopyFile(const std::string &in, const std::string &out) {
-        size_t size;
+        try {
+            std::ifstream src(in.c_str(), std::ios::binary);
+            std::ofstream dst(out.c_str(), std::ios::binary);
 
-        int source = open(in.c_str(), O_RDONLY, 0);
-        int dest   = open(out.c_str(), 0x602, 0644);
-        if (source < 0) {
-            return false;
+            dst << src.rdbuf();
+            return true;
+        } catch (std::exception &ex) {
+            DEBUG_FUNCTION_LINE_ERR("Exception: (Tried to copy %s -> %s): %s", in.c_str(), out.c_str(), ex.what());
         }
-        if (dest < 0) {
-            close(source);
-            return false;
-        }
-
-        auto bufferSize = 128 * 1024;
-        char *buf       = (char *) malloc(bufferSize);
-        if (buf == nullptr) {
-            return false;
-        }
-
-        bool result = true;
-        while ((size = read(source, buf, bufferSize)) > 0) {
-            if (write(dest, buf, size) < 0) {
-                result = false;
-                break;
-            }
-        }
-
-        free(buf);
-
-        close(source);
-        close(dest);
-        return result;
+        return false;
     }
 
     bool GetSerialId(std::string &serialID) {
@@ -125,11 +107,11 @@ namespace Utils {
                 serialID = std::string(settings.code_id) + settings.serial_id;
                 result   = true;
             } else {
-                // DEBUG_FUNCTION_LINE_ERR("Failed to get SerialId");
+                DEBUG_FUNCTION_LINE_ERR("Failed to get SerialId");
             }
             MCP_Close(handle);
         } else {
-            // DEBUG_FUNCTION_LINE_ERR("MCP_Open failed");
+            DEBUG_FUNCTION_LINE_ERR("MCP_Open failed");
         }
         return result;
     }
