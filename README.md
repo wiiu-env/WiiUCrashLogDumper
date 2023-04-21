@@ -5,7 +5,7 @@ A simple Wii U homebrew for dumping the consoles crash logs.
 > Make sure to update to [Aroma](https://aroma.foryour.cafe) or [Tiramisu](https://tiramisu.foryour.cafe), in order to use this application.
 
 ## Screenshots
-![](res/screenshot.jpg)
+![](res/screenshot.png)
 
 ## Building
 For building you need: 
