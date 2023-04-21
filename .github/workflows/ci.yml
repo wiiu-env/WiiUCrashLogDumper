@@ -32,9 +32,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
        name: binary
-       path: |
-         *.wuhb
-         *.rpx
+       path: "*.wuhb"
   deploy-binary:
     needs: build-binary
     runs-on: ubuntu-22.04
@@ -48,7 +46,7 @@ jobs:
       with:
         name: binary
     - name: zip artifact
-      run: zip -r ${{ env.REPOSITORY_NAME }}_${{ env.DATETIME }}.zip *.wuhb *.rpx
+      run: zip -r ${{ env.REPOSITORY_NAME }}_${{ env.DATETIME }}.zip *.wuhb
     - name: Create Release
       uses: "softprops/action-gh-release@v1"
       with:
