@@ -1,7 +1,7 @@
 # WiiUCrashLogDumper
 A simple Wii U homebrew for dumping the consoles crash logs.
 
-> :information_source: **WiiUIdent requires the [MochaPayload](https://github.com/wiiu-env/MochaPayload)!**  
+> :information_source: **WiiUCrashLogDumper requires the [MochaPayload](https://github.com/wiiu-env/MochaPayload)!**  
 > Make sure to update to [Aroma](https://aroma.foryour.cafe) or [Tiramisu](https://tiramisu.foryour.cafe), in order to use this application.
 
 ## Screenshots
