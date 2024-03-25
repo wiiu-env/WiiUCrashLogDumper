@@ -28,6 +28,7 @@ private:
     DumpState mDumpState = DUMP_STATE_SELECT;
 
     std::string mDestinationDirectory;
+    std::string mLatestLog;
     const std::string mSourceDirectory = CRASH_LOG_SOURCE_PATH;
     DIR *mSourceDirectoryHandle        = nullptr;
 

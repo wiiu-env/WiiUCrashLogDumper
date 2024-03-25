@@ -1,5 +1,6 @@
 #include "Utils.hpp"
 #include "logger.h"
+#include "common.h"
 #include <cstring>
 
 #include <coreinit/debug.h>
@@ -114,6 +115,25 @@ namespace Utils {
             DEBUG_FUNCTION_LINE_ERR("MCP_Open failed");
         }
         return result;
+    }
+
+    bool GetLatestLogName(std::string &name) {
+        try {
+            std::ifstream src(CRASH_LOG_META_PATH, std::ios::binary);
+
+            uint32_t numErrors;
+            if(!src.read(reinterpret_cast<char*>(&numErrors), sizeof(numErrors))) {
+                return false;
+            }
+
+            name = std::to_string(numErrors % 100) + ".log";
+
+            return true;
+        } catch (std::exception &ex) {
+            DEBUG_FUNCTION_LINE_ERR("Exception: (Tried to read from %s): %s", CRASH_LOG_META_PATH, ex.what());
+        }
+
+        return false;
     }
 
 } // namespace Utils

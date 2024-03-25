@@ -23,4 +23,6 @@ namespace Utils {
 
     bool GetSerialId(std::string &serialID);
 
+    bool GetLatestLogName(std::string &name);
+
 } // namespace Utils
