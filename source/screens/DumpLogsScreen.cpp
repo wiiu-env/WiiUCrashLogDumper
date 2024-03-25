@@ -14,6 +14,12 @@ DumpLogsScreen::DumpLogsScreen() {
     }
 
     mDestinationDirectory = CRASH_LOG_DESTINATION_PATH "/" + serialId + "/" + datetime;
+    
+    std::string latest;
+    if (!Utils::GetLatestLogName(latest)) {
+        mDumpState = DUMP_STATE_ERROR;
+    }
+    mLatestLog = latest;
 }
 
 DumpLogsScreen::~DumpLogsScreen() = default;
@@ -59,7 +65,9 @@ void DumpLogsScreen::Draw() {
             DrawSimpleText((std::vector<std::string>){"Dumping done!",
                                                       "",
                                                       "Logs saved to:",
-                                                      userFriendlyDestinationPath});
+                                                      userFriendlyDestinationPath,
+                                                      "",
+                                                      "Latest log: " + mLatestLog});
             break;
         }
     }
@@ -112,6 +120,9 @@ bool DumpLogsScreen::Update(Input &input) {
 
                 std::string sourceFullPath      = mSourceDirectory + "/" + filename;
                 std::string destinationFullPath = mDestinationDirectory + "/" + filename;
+                if(filename == mLatestLog) {
+                    destinationFullPath = destinationFullPath.substr(0, destinationFullPath.find(".log")) + " (Latest).log";
+                }
                 if (!Utils::CopyFile(sourceFullPath, destinationFullPath)) {
                     mDumpState = DUMP_STATE_ERROR;
                 }
